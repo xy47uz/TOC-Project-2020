@@ -27,7 +27,7 @@ class TocMachine(GraphMachine):
 		self.guess = event.message.text
 		if len(text) != 4:
 			return False
-		if test == self.target:
+		if text == self.target:
 			return False
 		return text.isdigit()
 	
