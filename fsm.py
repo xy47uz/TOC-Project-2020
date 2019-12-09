@@ -20,7 +20,7 @@ class TocMachine(GraphMachine):
 		self.guess = event.message.text
 		if len(text) != 4:
 			return False
-		return text == self.target
+		return text == str(self.target)
 		
 	def is_going_to_state3(self, event):
 		text = event.message.text
@@ -42,7 +42,7 @@ class TocMachine(GraphMachine):
 	def on_enter_state1(self, event):
 		print("I'm entering state1")
 		arr = [0,1,2,3,4,5,6,7,8,9]
-		for num in range(0,3):
+		for num in range(0,4):
 			ran = random.randint(0,9-num)
 			self.target[num] = arr[ran]
 			arr[ran] = arr[9-num]
@@ -70,12 +70,12 @@ class TocMachine(GraphMachine):
 		nA = 0
 		nB = 0
 		cpy = self.target
-		for num in range(0,3):
+		for num in range(0,4):
 			if self.guess[num] == str(cpy[num]):
 				cpy[num] = -1
 				nA = nA + 1
-		for num in range(0,3):
-			for num2 in range(0,3):
+		for num in range(0,4):
+			for num2 in range(0,4):
 				if self.guess[num] == str(cpy[num2]):
 					cpy[num2] = -1
 					nB = nB + 1
