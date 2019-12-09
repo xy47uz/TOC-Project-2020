@@ -41,7 +41,7 @@ class TocMachine(GraphMachine):
 	
 	def on_enter_state1(self, event):
 		print("I'm entering state1")
-		self.arr = [0,1,2,3,4,5,6,7,8,9]
+		arr = [0,1,2,3,4,5,6,7,8,9]
 		for num in range(0,3):
 			ran = random.randint(0,9-num)
 			self.target[num] = arr[ran]
