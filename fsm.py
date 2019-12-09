@@ -48,7 +48,7 @@ class TocMachine(GraphMachine):
 			self.target[num] = arr[ran]
 			arr[ran] = arr[9-num]
 		self.guesstimes = 9
-		reply_msg = "start your guess\n" + str(self.target)
+		reply_msg = "Start your guess"
 		reply_token = event.reply_token
 		send_text_message(reply_token, reply_msg)
 		self.go_back()
@@ -68,7 +68,7 @@ class TocMachine(GraphMachine):
 	
 	def on_enter_state3(self, event):
 		print("I'm entering state3")
-		reply_msg = "maybe you should try a 4-digit number without repeat."
+		reply_msg = "You should try a 4-digit number without repeat."
 		reply_token = event.reply_token
 		send_text_message(reply_token, reply_msg)
 		self.go_back()
@@ -102,7 +102,7 @@ class TocMachine(GraphMachine):
 					nB = nB + 1
 		self.guesstimes = self.guesstimes - 1
 		if self.guesstimes <= 0:
-			reply_msg = "you lose\nanswer is " + str(self.target[0]) + str(self.target[1]) + str(self.target[2]) + str(self.target[3])
+			reply_msg = "You lose\nAnswer is " + str(self.target[0]) + str(self.target[1]) + str(self.target[2]) + str(self.target[3])
 		else:
 			reply_msg = "nice try\n" + str(nA) + "A" + str(nB) + "B"
 		reply_token = event.reply_token
