@@ -3,6 +3,7 @@ from transitions.extensions import GraphMachine
 from utils import send_text_message
 
 import random
+import copy
 
 
 class TocMachine(GraphMachine):
@@ -89,7 +90,7 @@ class TocMachine(GraphMachine):
 		print("I'm entering state5")
 		nA = 0
 		nB = 0
-		cpy = self.target.copy
+		cpy = copy.copy(self.target)
 		for num in range(0,4):
 			if self.guess[num] == str(cpy[num]):
 				cpy[num] = -1
