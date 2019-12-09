@@ -20,7 +20,7 @@ class TocMachine(GraphMachine):
 		self.guess = event.message.text
 		if len(text) != 4:
 			return False
-		return test == self.target
+		return text == self.target
 		
 	def is_going_to_state3(self, event):
 		text = event.message.text
