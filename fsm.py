@@ -21,11 +21,11 @@ class TocMachine(GraphMachine):
 		self.guess = event.message.text
 		if len(text) != 4:
 			return False
-		return text == str(self.target)
+		return text[0] == str(self.target[0]) and text[1] == str(self.target[1]) and text[2] == str(self.target[2]) and text[3] == str(self.target[3])
 	
 	def is_going_to_state3(self, event):
 		text = event.message.text
-		return len(text) != 4 | text.isdigit() == True
+		return len(text) != 4 or text.isdigit() == False
 		
 	def is_going_to_state4(self, event):
 		text = event.message.text
@@ -101,7 +101,10 @@ class TocMachine(GraphMachine):
 					cpy[num2] = -1
 					nB = nB + 1
 		self.guesstimes = self.guesstimes - 1
-		reply_msg = "nice try\n" + str(nA) + "A" + str(nB) + "B"
+		if self.guesstimes <= 0:
+			reply_msg = "you lose\nanswer is " + str(self.target[0]) + str(self.target[1]) + str(self.target[2]) + str(self.target[3])
+		else:
+			reply_msg = "nice try\n" + str(nA) + "A" + str(nB) + "B"
 		reply_token = event.reply_token
 		send_text_message(reply_token, reply_msg)
 		self.go_back()
