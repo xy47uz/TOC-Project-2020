@@ -79,7 +79,7 @@ class TocMachine(GraphMachine):
 					cpy[num2] = -1
 					nB = nB + 1
 		self.guesstimes = self.guesstimes - 1
-		reply_msg = "nice try\n" + nA + "A" + nB + "B"
+		reply_msg = "nice try\n" + nA.str() + "A" + nB.str() + "B"
 		reply_token = event.reply_token
 		send_text_message(reply_token, reply_msg)
 		self.go_back()
