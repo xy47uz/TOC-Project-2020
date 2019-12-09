@@ -21,8 +21,16 @@ class TocMachine(GraphMachine):
 		if len(text) != 4:
 			return False
 		return text == str(self.target)
-		
+	
 	def is_going_to_state3(self, event):
+		text = event.message.text
+		return len(text) != 4 | text.isdigit() == True
+		
+	def is_going_to_state4(self, event):
+		text = event.message.text
+		return self.guesstimes <= 0
+		
+	def is_going_to_state5(self, event):
 		text = event.message.text
 		self.guess = event.message.text
 		if len(text) != 4:
@@ -30,14 +38,6 @@ class TocMachine(GraphMachine):
 		if text == self.target:
 			return False
 		return text.isdigit()
-	
-	def is_going_to_state4(self, event):
-		text = event.message.text
-		return len(text) != 4 | text.isdigit() == True
-		
-	def is_going_to_state5(self, event):
-		text = event.message.text
-		return self.guesstimes <= 0
 	
 	def on_enter_state1(self, event):
 		print("I'm entering state1")
@@ -67,6 +67,26 @@ class TocMachine(GraphMachine):
 	
 	def on_enter_state3(self, event):
 		print("I'm entering state3")
+		reply_msg = "maybe you should try a 4-digit number without repeat."
+		reply_token = event.reply_token
+		send_text_message(reply_token, reply_msg)
+		self.go_back()
+	
+	def on_exit_state3(self):
+		print("Leaving state3")
+	
+	def on_enter_state4(self, event):
+		print("I'm entering state4")
+		reply_msg = "Enter \"new game\"to start a new game."
+		reply_token = event.reply_token
+		send_text_message(reply_token, reply_msg)
+		self.go_back()
+	
+	def on_exit_state5(self):
+		print("Leaving state4")
+	
+	def on_enter_state5(self, event):
+		print("I'm entering state5")
 		nA = 0
 		nB = 0
 		cpy = self.target
@@ -86,26 +106,6 @@ class TocMachine(GraphMachine):
 		self.go_back()
 	
 	def on_exit_state3(self):
-		print("Leaving state3")
-	
-	def on_enter_state4(self, event):
-		print("I'm entering state4")
-		reply_msg = "maybe you should try a 4-digit number without repeat."
-		reply_token = event.reply_token
-		send_text_message(reply_token, reply_msg)
-		self.go_back()
-	
-	def on_exit_state4(self):
-		print("Leaving state4")
-	
-	def on_enter_state5(self, event):
-		print("I'm entering state5")
-		reply_msg = "Enter \"new game\"to start a new game."
-		reply_token = event.reply_token
-		send_text_message(reply_token, reply_msg)
-		self.go_back()
-	
-	def on_exit_state5(self):
 		print("Leaving state5")
 	
 	
