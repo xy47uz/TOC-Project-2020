@@ -47,8 +47,9 @@ class TocMachine(GraphMachine):
 			self.target[num] = arr[ran]
 			arr[ran] = arr[9-num]
 		self.guesstimes = 9
+		reply_msg = "start your guess\n" + str(self.target)
 		reply_token = event.reply_token
-		send_text_message(reply_token, "start your guess")
+		send_text_message(reply_token, reply_msg)
 		self.go_back()
 	
 	def on_exit_state1(self):
@@ -70,12 +71,12 @@ class TocMachine(GraphMachine):
 		nB = 0
 		cpy = self.target
 		for num in range(0,3):
-			if self.guess[num] == cpy[num]:
+			if self.guess[num] == str(cpy[num]):
 				cpy[num] = -1
 				nA = nA + 1
 		for num in range(0,3):
 			for num2 in range(0,3):
-				if self.guess[num] == cpy[num2]:
+				if self.guess[num] == str(cpy[num2]):
 					cpy[num2] = -1
 					nB = nB + 1
 		self.guesstimes = self.guesstimes - 1
